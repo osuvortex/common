@@ -944,7 +944,8 @@ def resetPendingFlag(userID, success=True):
 	"""
 	glob.db.execute("UPDATE users SET privileges = privileges & %s WHERE id = %s LIMIT 1", [~privileges.USER_PENDING_VERIFICATION, userID])
 	if success:
-		glob.db.execute("UPDATE users SET privileges = privileges | %s WHERE id = %s LIMIT 1", [(privileges.USER_PUBLIC | privileges.USER_NORMAL), userID])
+		glob.db.execute("UPDATE users SET privileges = privileges | %s WHERE id = %s LIMIT 1", [(privileges.USER_PUBLIC | privileges.USER_NORMAL), userID]) 
+		glob.db.execute("UPDATE users SET is_public = '1' WHERE id = %s LIMIT 1", [userID])
 
 def verifyUser(userID, hashes):
 	"""
